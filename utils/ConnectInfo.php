@@ -10,7 +10,9 @@ class ConnectInfo implements ConnInfo{
 
 
     public function connect(){
-        $this->conn = new mysqli($this->host, $this->dbuser, $this->dbpass, $this->dbname);
+        $this->conn = new mysqli($this->host, $this->dbuser, $this->dbpass,$this->dbname);
+        
+        /**  Check if the connection is succesful*/
         $error = $this->conn->connect_error ? 'Error in connection'  : $this->conn;
         
         return $error;
