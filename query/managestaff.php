@@ -30,9 +30,14 @@ class StaffQuery{
 
     /** Add Staff to table */
 
-    public function addStaffQuery($surname,$firstname,$email,$houseAddress,$phone,$salary){
-        $query = "INSERT INTO staff (SURNAME, FIRST_NAME,EMAIL,HOUSE_ADDRESS,PHONE,SALARY) VALUES('$surname', '$firstname','$email','$houseAddress','$phone', '$salary')";
+    public function addStaffQuery($surname,$firstname,$email,$houseAddress,$phone,$salary,$job_role){
+        $query = "INSERT INTO staff (SURNAME, FIRST_NAME,EMAIL,HOUSE_ADDRESS,PHONE,SALARY,JOB_ROLE) VALUES('$surname', '$firstname','$email','$houseAddress','$phone', '$salary','$job_role')";
         
+        return $query;
+    }
+
+    public function getJobList($job_role){
+        $query = "SELECT SURNAME, FIRST_NAME FROM staff WHERE JOB_ROLE='$job_role'";
         return $query;
     }
 

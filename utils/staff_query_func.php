@@ -7,30 +7,67 @@ session_start();
 class StaffQueryFunc{
     private $query;
     private $processQuery;
+    private $updates;
 
 
+    #
     public function __construct(){
         $this->queryClass = new StaffQuery();
         $testConn = new ConnectInfo();
         $this->connDB =  $testConn->connect();
     }
 
-    #get query data
-    public function getQueryData($query){
+
+    #insert query data
+    public function insertQueryData($query){
         $this->updates = array();
         $this->result  = mysqli_query($this->connDB, $query);
         return $this->result;
     }
 
+
+    #insert 
+    public function getQueryData($query){
+
+        $this->updates = array();
+
+        $this->result = mysqli_query($this->connDB, $query);
+
+        if(!$this->result) return "Error description: " . mysqli_error($this->connDB);
+
+        elseif($this->result->num_rows > 0){
+
+            while($this->row = $this->result->fetch_assoc()){
+				$this->updates[] = $this->row;
+			}
+        }
+
+        return $this->updates;
+    }
+
     #update staff
-    public function addToStaff($surname,$firstname,$email,$houseAddress,$phone, $salary){
+    public function addToStaff($surname,$firstname,$email,$houseAddress,$phone, $salary,$jobrole){
 
-        $this->query = $this->queryClass->addStaffQuery($surname,$firstname,$email,$houseAddress,$phone,$salary);
+        $this->query = $this->queryClass->addStaffQuery($surname,$firstname,$email,$houseAddress,$phone,$salary,$jobrole);
 
-       $this->processData = $this->getQueryData($this->query);
+       $this->processData = $this->insertQueryData($this->query);
        
        if(!$this->processData) return "Error in upload try again later";
 
        else return "New Staff added"; 
+    }
+
+    public function getAllStaff(){
+        $this->query = $this->queryClass->getAllStaff();
+        $this->processQuery = $this->getQueryData($this->query);
+        return $this->processQuery;
+    }
+
+    public function getFullJobList($role){
+        $this->query = $this->queryClass->getJobList($role);
+
+        $this->processQuery = $this->getQueryData($this->query);
+
+        return $this->processQuery;
     }
 }

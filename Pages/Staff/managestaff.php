@@ -12,7 +12,7 @@ $updateStaff = '';
 if (isset($_POST) && isset($_POST['submitPage'])){
 
    $updateStaff =  $pageQuery->addToStaff($_POST['surname'],$_POST['firstname'], $_POST['email'],
-    $_POST['house_add'], $_POST['phone'], $_POST['salary']);
+    $_POST['house_add'], $_POST['phone'], $_POST['salary'],$_POST['jobrole']);
 }
 ?>
 
@@ -29,7 +29,7 @@ if (isset($_POST) && isset($_POST['submitPage'])){
                 <h2 class="font-semibold text-4xl text-center text-slate-900 ">Add New Staff </h2>
             </header>
             <header class='mb-0.5'>
-                <p class='underline text-center p '><a href='#'>View all Staff</a></p>
+                <p class='underline text-center p '><a href='./viewstaff.php'>View all Staff</a></p>
             </header>
             <div class='flex flex-row border justofy-center text-center'>
                 <div class='basis-1/4 p-6'>
@@ -47,10 +47,22 @@ if (isset($_POST) && isset($_POST['submitPage'])){
                             <input type="text" name='email' class='form-input px-4 py-3 ' type='email' placeholder='email' required>
                         </div>
                         <div class='form-group'>
+                        <label for="">Job role</label>
+                            <select class='form-input px-4 py-3 '  name='jobrole' type='text'>
+                                <option value='captain'>Captain</option>
+                                <option value='flight engineer'>flight Engineer</option>
+                                <option value='flight attendant'>Flight attendant</option>
+                                <option value='navigator'>Navigator</option>
+                                <option value='relief crew'>Relief Crew</option>
+                                <option value='flight medic'>Flight Medic</option>
+                            </select>
+                        </div>
+                        <div class='form-group'>
                             <label for="">Address</label>
                             <textarea type="text" class='form-input px-4 py-3 ' placeholder='House Address' name='house_add' required>
                             </textarea>
                         </div>
+                        
                         <div class='form-group'>
                             <label for="">Phone Number</label>
                             <input type="text" class='form-input px-4 py-3' placeholder='phone' name='phone' required>
