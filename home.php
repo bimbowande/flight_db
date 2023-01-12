@@ -22,9 +22,10 @@
         <div class='management_div'>
             <h3>Actions</h3>
             <ul class='manage_link'>
+                <a class='manipulate' href='./AdminUser/index.php'><li class='manipulate'>Manage Staff</li></a>
                 <a href='./AdminUser/booking.php'><li>Manage Booking</li></a>
                 <a  href='./AdminUser/flight.php'><li>Manage Flights</li></a>
-                <a href='./AdminUser/index.php'><li>manage Staff</li></a>
+               
             </ul>
         </div>
     </body>

@@ -57,12 +57,32 @@ class StaffQueryFunc{
        else return "New Staff added"; 
     }
 
+    public function updateToStaff($id,$surname,$firstname,$email){
+        echo "done";
+        $this->query = $this->queryClass->updateStaff($id,$surname,$firstname,$email);
+
+       $this->processData = $this->insertQueryData($this->query);
+       
+       if(!$this->processData) return "Error in upload try again later" . mysqli_error($this->connDB);
+
+       else return "New Staff added"; 
+    }
+
     public function getAllStaff(){
         $this->query = $this->queryClass->getAllStaff();
         $this->processQuery = $this->getQueryData($this->query);
         return $this->processQuery;
     }
 
+    public function getAStaffFull($id){
+
+        $this->query = $this->queryClass->getAStaff($id);
+        $this->processQuery = $this->getQueryData($this->query);
+
+        if(!$this->processQuery) echo mysqli_error($this->connDB);
+        return $this->processQuery;
+    }
+    
     public function getFullJobList($role){
         $this->query = $this->queryClass->getJobList($role);
 

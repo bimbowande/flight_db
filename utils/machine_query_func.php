@@ -16,6 +16,16 @@
         $this->connDB = $testConn->connect();
     }
 
+    public function addNewMachine($model,$manu){
+    
+        $this->query = $this->queryClass->addMachine($model,$manu);
+       
+        $this->processData = $this->insertQueryData($this->query);
+       
+        if(!$this->processData) return "Error in upload try again later:". mysqli_error($this->connDB);
+ 
+        else return true; 
+    }
     #
     public function insertQueryData($query){
         $this->updates = array();
@@ -27,6 +37,8 @@
         $this->result = mysqli_query($this->connDB, $query);
         return $this->result;
     }
+
+
     #
     public function getQueryData($query){
 

@@ -8,9 +8,9 @@ class MachineQuery{
     }
 
     #add a new machine
-    public function addMachine($serialNum, $manufacturer, $model){
-        $this->query = "INSERT INTO `Airplane` (NUMUSER, MODEL, MANUFACTURER) VALUES
-        ($serialNum, $manufacturer, $model)
+    public function addMachine($manufacturer, $model){
+        $this->query = "INSERT INTO Airplane (MODEL, MANUFACTURER) VALUES
+        ('$manufacturer', '$model')
         ";
         return $this->query;
     }

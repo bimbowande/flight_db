@@ -3,14 +3,16 @@
     <?php
         include('../utils/staff_query_func.php');
         $staffDump = new StaffQueryFunc();
-
+        $value = $_GET['value'];
         # get all the items
-        $allstaff = $staffDump->getAllStaff();
+        $allstaff = $staffDump->getAStaffFull($value);
+
     ?>
     <?
-        if(isset($_GET['value'])){
-            $value = $_GET['value'];
-            $query = $staffDump->deleteStaff($value);
+        if(isset($_POST['submit'])){
+            $doit = $staffDump->updateToStaff($value,$_POST['surname'],$_POST['firstname'],$_POST['email']);
+
+            echo $doit;
         }
     ?>
 <head>
@@ -52,71 +54,29 @@
     </nav>
     
     <div class="width_adjust">
-        <a href='./createstaff.php'><button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add new staff</button></a>
+        <a href='./index.php'><button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">View Staff</button></a>
     </div>
     <div class="relative overflow-x-auto width_adjust">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                    S/N
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                    FullName
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                    FIRST NAME
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                    HOUSE ADDRESS
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                    PHONE
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                    JOB ROLE
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                    SALARY
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-
-            <? foreach($allstaff as $key){ 
-            ?>
-
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                     <?echo $key['EMPNUM'] ??''?>
-                </th>
-                <td class="px-6 py-4">
-                    <?echo $key['SURNAME'].' '. $key['FIRST_NAME']??'No specific'?>
-                </td>
-                <td class="px-6 py-4">
-                    <?echo $key['HOUSE_ADDRESS']?? ''?> 
-                </td>
-                <td class="px-6 py-4">
-                    <?echo $key['PHONE']?? '1'?> 
-                </td>
-                <td class="px-6 py-4">
-                    <?echo $key['JOB_ROLE']?? '1'?> 
-                </td>
-                <td class="px-6 py-4">
-                    <?echo $key['SALARY']?? '1'?> 
-                </td>
-                <td class="px-6 py-4">
-                    <a href=<? echo "./editstaff.php?value=".$key['EMPNUM']?> class='see_more'><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
-                    </a>
-                   
-                    <a href="<? echo $_SERVER['PHP_SELF']."?value=".$key['EMPNUM'] ?>">
-                         <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Delete</button>
-                    </a>
-                </td>
-            </tr>
-           <? } ?>
-            </tbody>
-        </table>
+        <?foreach( $allstaff as $key){ ?>
+    <form method='POST' action="<?=$_SERVER['PHP_SELF']."?value=".$value ?>">
+            <div class="mb-6">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Surname</label>
+                <input type="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  name='surname'  value="<? echo $key['SURNAME']?>"required>
+            </div>
+            <div class="mb-6">
+                <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                <input type="text" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name='firstname' value="<?echo $key['FIRST_NAME']?>" required>
+            </div>
+            <div class="mb-6">
+                <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <input type="text" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  name='email' value="<?echo $key['EMAIL']?>" required>
+            </div>
+            
+                 
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"  name='submit'>Submit</button>
+            <?}?>
+        </form>
+    </div>
     </div>   
 </body>
 </html>

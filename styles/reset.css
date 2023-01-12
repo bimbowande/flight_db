@@ -67,3 +67,7 @@ input,select{
 .button_actions > a {
     margin-left: 10px;
 }
+
+.manipulate{
+    font-size:1.5rem;
+}

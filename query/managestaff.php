@@ -10,8 +10,15 @@ class StaffQuery{
     }
 
     public function addStaffType($staff_type_name){
-        $query = "INSERT INTO `staff_type` (staff_type_name) VALUES ($staff_type_name)";
+        $query = "INSERT INTO staff_type (staff_type_name) VALUES ($staff_type_name)";
         return $query;
+    }
+
+
+    public function updateStaff($id,$surname,$firstname,$email){
+       $query =  
+       "UPDATE staff SET SURNAME='$surname', FIRST_NAME='$firstname', EMAIL='$email' WHERE EMPNUM=$id" ;
+       return $query;
     }
 
     /** Return all staff list */
@@ -24,7 +31,7 @@ class StaffQuery{
     /** Return a specific staff */
 
     public function getAStaff($id){
-        $query = "SELECT * FROM staff WHERE  id =`$id`";
+        $query = "SELECT * FROM staff WHERE  EMPNUM =$id";
         return $query;
     }
 

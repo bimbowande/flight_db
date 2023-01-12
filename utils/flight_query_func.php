@@ -47,5 +47,22 @@
             $this->processQuery = $this->getQueryData($this->query);
             return $this->processQuery;
         }
+
+        public function addNewflight($flight_num,$dept,$dest,$num_of_passenger){
+    
+            $this->query = $this->queryClass-> addFlights($flight_num,$dept,$dest,$num_of_passenger);
+           
+            $this->processData = $this->insertQueryData($this->query);
+           
+            if(!$this->processData) return "Error in upload try again later:". mysqli_error($this->connDB);
+     
+            else return true; 
+        }
+
+        public function deleteFlightCol($id){
+            $this->result = mysqli_query($this->connDB, $this->queryClass->deleteFlight($id));
+            if(!$this->result) return 'error few mins'. mysqli_error($this->connDB);
+            else return "succesful";
+        }
     }
 ?>

@@ -6,9 +6,9 @@ Class FlightQuery{
 
 
     #add new flights
-    public function addFlights($flight_num, $departure, $destination, $numofpassengers,$dateTime){
+    public function addFlights($flight_num, $departure, $destination, $numofpassengers){
 
-        $this->query = "INSERT INTO `flight_info(FLIGHT_NUM, FLIGHT_DATE,DEPARTURE,DESTINATION, NUM_OF_PASSENGERS)` VALUES ( '$flight_num','$dateTime','$departure','$destination','$numofpassengers')";
+        $this->query = "INSERT INTO flight_info (FLIGHT_NUM,FLIGHT_DATE,ORIGIN,DEST, NUMBER_OF_PASSENGERS) VALUES ('$flight_num',NOW(),'$departure','$destination','$numofpassengers')";
         return $this->query;
     }
 

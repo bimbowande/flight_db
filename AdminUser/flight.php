@@ -4,7 +4,14 @@ include('../utils/flight_query_func.php');
 $allFlights = new FlightQueryFunc();
 
 $displayFlight = $allFlights->getAllFlights();
+
 ?>
+<?
+        if(isset($_GET['value'])){
+            $value = $_GET['value'];
+            $query =$allFlights->deleteFlightCol($value);
+        }
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -95,7 +102,8 @@ $displayFlight = $allFlights->getAllFlights();
                     <?echo $key['NUMBER_OF_PASSENGERS']?? '1'?> 
                 </td>
                 <td>
-                <a href='#' class='see_more'><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+                <a href="<? echo $_SERVER['PHP_SELF']."?value=".$key['id'] ?>" 
+                 class='see_more'><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Delete</button>
                     </a>
                    
                     <a href='#'>
