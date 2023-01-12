@@ -30,7 +30,6 @@ Class FlightQuery{
         return $this->query;
     }
 
-   
 }
 
 ?>

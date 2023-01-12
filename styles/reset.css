@@ -25,8 +25,8 @@ input,select{
     /* border:1px solid rgba(63, 94, 133, 0.358) !important; */
     margin: 0 auto;
     padding: 20px;
-    width:80%;
-    margin-top:120px;
+    width:90%;
+    margin-top:50px;
     background-color: rgba(197, 208, 221, 0.358);
 }
 
@@ -41,4 +41,29 @@ input,select{
 .button_details > button{
     border-radius:none  !important;
     padding: 10px;
+}
+
+.management_div{
+    width:60%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.management_div h3{
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 1.18rem;
+}
+.manage_link a li{
+    text-decoration: underline;
+}
+
+.button_actions{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button_actions > a {
+    margin-left: 10px;
 }

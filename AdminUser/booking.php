@@ -2,11 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
     <?php
-        include('../utils/staff_query_func.php');
-        $staffDump = new StaffQueryFunc();
+        include('../utils/passengers_query_func.php');
+        $staffDump = new PassengerQueryFunc();
 
         # get all the items
-        $allstaff = $staffDump->getAllStaff();
+        $allBooking = $staffDump-> getAllBookings();
+    ?>
+    <?
+    if(isset($_GET['value'])){
+        $value = $_GET['value'];
+        $query =  $staffDump->deletePassengerCol($value);
+        echo $query;
+    }
     ?>
 <head>
     <meta charset="UTF-8">
@@ -17,10 +24,37 @@
     <link href='../styles/reset.css' rel='stylesheet'/>
 </head>
 <body>
-    <?include_once('../components/navbar_admin.php');?> 
+<nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+  <div class="container flex flex-wrap items-center justify-between mx-auto">
+    <a  class="flex items-center">
+    
+        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Airlines</span>
+    </a>
+    <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+      <span class="sr-only">Open main menu</span>
+      <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+    </button>
+    <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+      <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <li>
+          <a href="./index.php"" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Staffs</a>
+        </li>
+        <li>
+          <a href="./flight.php" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Schedule Flights</a>
+        </li>
+        <li>
+          <a href="./booking.php"  class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Bookings list</a>
+        </li>
+        <li>
+          <a href="./machines.php" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Machines</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
     
     <div class="width_adjust">
-        <a href='./createstaff.php'><button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add new staff</button></a>
+        <a href='./createbooking.php'><button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add Booking</button></a>
     </div>
     <div class="relative overflow-x-auto width_adjust">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -33,48 +67,70 @@
                     FullName
                     </th>
                     <th scope="col" class="px-6 py-3">
-                    FIRST NAME
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                    HOUSE ADDRESS
+                    EMAIL
                     </th>
                     <th scope="col" class="px-6 py-3">
                     PHONE
                     </th>
                     <th scope="col" class="px-6 py-3">
-                    JOB ROLE
+                    BOOKIMG DATE
                     </th>
                     <th scope="col" class="px-6 py-3">
-                    SALARY
+                    FLIGHT NUMBER
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                    HOME ADDRESS
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                    DEPARTURE TIME
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                    DESTINATION TIME
                     </th>
                 </tr>
             </thead>
             <tbody>
 
-            <? foreach($allstaff as $key){ 
+            <? foreach($allBooking as $key){ 
             ?>
 
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                     <?echo $key['EMPNUM'] ??''?>
+                     <?echo $key['id'] ??''?>
                 </th>
+                
                 <td class="px-6 py-4">
-                    <?echo $key['SURNAME'].' '. $key['FIRST_NAME']??'No specific'?>
+                    <?echo $key['SURNAME'].' '. $key['FIRSTNAME']??'No specific'?>
                 </td>
                 <td class="px-6 py-4">
-                    <?echo $key['HOUSE_ADDRESS']?? ''?> 
+                    <?echo $key['EMAIL']?? ''?> 
                 </td>
                 <td class="px-6 py-4">
                     <?echo $key['PHONE']?? '1'?> 
                 </td>
                 <td class="px-6 py-4">
-                    <?echo $key['JOB_ROLE']?? '1'?> 
+                    <?echo $key['BOOKDATE']?? '1'?> 
                 </td>
                 <td class="px-6 py-4">
-                    <?echo $key['SALARY']?? '1'?> 
+                    <?echo $key['FLIGHTNUM']?? '1'?> 
                 </td>
                 <td class="px-6 py-4">
-                    <a href='#' class='see_more'>Edit</a>
+                    <?echo $key['HOME_ADD']?? '1'?> 
+                </td>
+                <td class="px-6 py-4">
+                    <?echo $key['DEPARTURE']?? '1'?> 
+                </td>
+                <td class="px-6 py-4">
+                    <?echo $key['DESTINATION']?? '1'?> 
+                </td>
+                <td class="px-6 py-4 button_actions">
+                    <a href='#' class='see_more'><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
+                    </a>
+                   
+                    <a href="<? echo $_SERVER['PHP_SELF']."?value=".$key['id'] ?>">
+                         <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Delete </button>
+                    </a>
+                   
                 </td>
             </tr>
            <? } ?>

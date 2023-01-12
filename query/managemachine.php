@@ -31,8 +31,8 @@ class MachineQuery{
 
     }
 
-    public function deletMachine($id){
-        $query = "DELETE FROM `Airplane` WHERE id =`$id`";
+    public function deleteMachine($id){
+        $this->query = "DELETE FROM `Airplane` WHERE id =$id";
         return $this->query;
     }
 }

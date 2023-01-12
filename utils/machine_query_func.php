@@ -22,6 +22,11 @@
         $this->result = mysqli_query($this->connDB, $query);
         return $this->result;
     }
+
+    public function deleteQuery($query){
+        $this->result = mysqli_query($this->connDB, $query);
+        return $this->result;
+    }
     #
     public function getQueryData($query){
 
@@ -45,6 +50,11 @@
         $this->processQuery = $this->getQueryData($this->query);
         return $this->processQuery;
     }
-    
+
+    public function deleteMachineItem($id){
+        $this->result = mysqli_query($this->connDB, $this->queryClass->deleteMachine($id));
+        return $this->result;
+    }
+
  }
 ?>

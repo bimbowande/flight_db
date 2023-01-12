@@ -42,11 +42,10 @@ class StaffQuery{
     }
 
     /** Delete a user */
-    public function deletUser($id){
-        $query = "DELETE FROM staff WHERE EMPNUM =`$id`";
-        return $query;
+    public function deleteUser($id){
+        $this->query = "DELETE FROM staff WHERE EMPNUM =$id";
+        return $this->query;
     }
-
 }
 
 ?>

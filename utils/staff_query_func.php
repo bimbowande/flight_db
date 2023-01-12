@@ -52,7 +52,7 @@ class StaffQueryFunc{
 
        $this->processData = $this->insertQueryData($this->query);
        
-       if(!$this->processData) return "Error in upload try again later";
+       if(!$this->processData) return "Error in upload try again later" . mysqli_error($this->connDB);
 
        else return "New Staff added"; 
     }
@@ -69,5 +69,11 @@ class StaffQueryFunc{
         $this->processQuery = $this->getQueryData($this->query);
 
         return $this->processQuery;
+    }
+
+    public function deleteStaff($id){
+        $this->result = mysqli_query($this->connDB, $this->queryClass->deleteUser($id));
+        if(!$this->result) return 'error few mins'. mysqli_error($this->connDB);
+        else return "succesful";
     }
 }

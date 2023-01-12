@@ -19,6 +19,7 @@
         $this->result = mysqli_query($this->connDB, $query);
         return $this->result;
     }
+
     public function getQueryData($query){
 
         $this->updates = array();
@@ -47,10 +48,22 @@
         else return true; 
     }
 
+    public function  getAllBookings(){
+        $this->query = $this->queryClass->getAllBookings();
+         $this->processQuery = $this->getQueryData($this->query);
+         return $this->processQuery;
+    }
+
     public function getAllFlights(){
         $this->query = $this->queryClass->getFlights();
         $this->processQuery = $this->getQueryData($this->query);
         return $this->processQuery;
+    }
+    
+    public function deletePassengerCol($id){
+        $this->result = mysqli_query($this->connDB, $this->queryClass->deletePassenger($id));
+        if(!$this->result) return 'error few mins'. mysqli_error($this->connDB);
+        else return "succesful";
     }
  }
 
